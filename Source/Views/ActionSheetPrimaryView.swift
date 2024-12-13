@@ -5,7 +5,8 @@ final class ActionSheetPrimaryView: UIView {
     private let titleLabel = AlertLabel()
     private let messageLabel = AlertLabel()
     private let actionsView = ActionsCollectionView()
-
+    private var heightConstraint: NSLayoutConstraint?
+    
     var title: NSAttributedString? {
         didSet { self.titleLabel.attributedText = self.title }
     }
@@ -162,10 +163,9 @@ final class ActionSheetPrimaryView: UIView {
     {
         actionsView.actions = actions
         actionsView.visualStyle = visualStyle
-
-        NSLayoutConstraint.activate([
-            actionsView.heightAnchor.constraint(equalToConstant: actionsView.displayHeight)
-                .prioritized(value: .defaultHigh),
-        ])
+        heightConstraint?.isActive = false
+        heightConstraint = actionsView.heightAnchor.constraint(equalToConstant: actionsView.displayHeight)
+            .prioritized(value: .defaultHigh)
+        heightConstraint?.isActive = true
     }
 }

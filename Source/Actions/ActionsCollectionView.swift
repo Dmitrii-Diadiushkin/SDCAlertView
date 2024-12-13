@@ -5,7 +5,11 @@ private let kActionCellIdentifier = "actionCell"
 @available(iOSApplicationExtension, unavailable)
 final class ActionsCollectionView: UICollectionView {
 
-    var actions: [AlertAction] = []
+    var actions: [AlertAction] = [] {
+        didSet {
+            reloadData()
+        }
+    }
 
     var visualStyle: AlertVisualStyle! {
         didSet {
